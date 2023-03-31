@@ -1,0 +1,6 @@
+pip install flask
+pip install flaskwebgui
+
+pip install binance-futures-connector
+
+python==3.11.2

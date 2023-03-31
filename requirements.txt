@@ -1,0 +1,4 @@
+flask==2.2.3
+flaskwebgui==1.0.3
+binance-futures-connector==3.3.0
+python==3.11.2

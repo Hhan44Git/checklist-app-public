@@ -1,0 +1,193 @@
+{% extends "layout.html" %}
+{% block title %}
+   <title>Checklist Trade Overview</title>
+{% endblock %}
+{% block body %}
+<!--Maingrid-->
+<div class="container">
+    <!--tradeov head-->
+    <div class="tradeovhead">
+         <div class="divTable">
+            <div class="divTableBody">
+                <div class="divTableRow">
+                    <div class="divTableCell"><a href="{{ url_for('main') }}">Checklist</a></div>
+                    <div class="divTableCell">RiskLevel {{risklevel}}</div>
+                    <div class="divTableCell">BUSD {{balance}}</div>
+                    <div class="divTableCell">BTC Markprice: {{markprice}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Openlists-->
+    <div class="openlists">
+        <!--Positions-->
+        <table class="mytables">
+            <tr>
+                <th><h1 class="insetshadow">Open Position</h1></th>
+            </tr>
+        </table>
+        <table class="mytables">
+            <tbody>
+                <tr>
+                    <th><p>entryPrice</p></th>
+                    <th><p>positionAmt</p></th>                                
+                    <th><p>markPrice</p></th>
+                    <th><p>unRealizedProfit</p></th>
+                    <th><p>notional</p></th>
+                    <th><p>Close Position</p></th>
+                </tr>
+                {% for i in openposition %}
+                <tr class="brightcolor">
+                    <td class="gradientcolor">{{i.entryPrice}}</td>
+                    <td class="gradientcolor">{{i.positionAmt}}</td>                                
+                    <td class="gradientcolor">{{i.markPrice}}</td>
+                    <td class="gradientcolor">{{i.unRealizedProfit}}</td>
+                    <td class="gradientcolor">{{i.notional}}</td>
+                    <td>
+                        <div class="displayflex">
+                        <!-- Modal Button -->
+                        <form action="/closestop" method="post">
+                            <input type="hidden" name="symbol" value="{{i.symbol}}">
+                            <input type="hidden" name="positionAmt" value="{{i.positionAmt}}">
+                            <input type="submit" value="Close Stop" class="btn btn-primary btn-small btn-close widthfitcontent">
+                        </form>
+                        <button type="button" class="btn btn-primary btn-small btn-close btn-close-right" data-toggle="modal" data-target="#modalcloseposition">Close</button>
+                        {% with messages = get_flashed_messages(category_filter=["closeorder"]) %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                <p class=flashes>{{ message }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalcloseposition" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Close Position</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Do you really want close the open position?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="/closehook" method="post">
+                                            <input type="hidden" name="symbol" value="{{i.symbol}}">
+                                            <input type="hidden" name="positionAmt" value="{{i.positionAmt}}">
+                                            <input type="submit" value="Yes, close." class="btn btn-primary btn-small modalfooterbtnfix">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!--Orders-->
+        <table class="mytables">
+            <tr>
+                <th><h1 class="insetshadow">Openorders</h1></th>
+            </tr>
+        </table>
+        <table class="mytables">
+            <tbody>
+                <tr>
+                    <th><p>price</p></th>
+                    <th><p>origQty</p></th>
+                    <th><p>executedQty</p></th>
+                    <th><p>type</p></th>
+                    <th><p>reduceOnly</p></th>
+                    <th><p>side</p></th>
+                </tr>
+                {% for i in openorders %}
+                <tr class="brightcolor">
+                    {% if i.type == 'LIMIT' %}
+                    <td class="gradientcolor">{{i.price}}</td>
+                    {% else %}
+                    <td class="gradientcolor">{{i.stopPrice}}</td>
+                    {% endif %}
+                    <td class="gradientcolor">{{i.origQty}}</td>
+                    <td class="gradientcolor">{{i.executedQty}}</td>
+                    <td class="gradientcolor">{{i.type}}</td>
+                    <td class="gradientcolor">{{i.reduceOnly}}</td>
+                    <td>
+                        <div class="div100">
+                            <div class="gradientcolor div50">{{i.side}}</div>
+                            <div class="div50"><form action="/closeorderid" method="post">
+                                <input type="hidden" name="symbol" value="{{i.symbol}}">
+                                <input type="hidden" name="orderid" value="{{i.orderId}}">
+                                <input type="submit" value="x" class="btn btn-primary btn-small btn-closeorderid">
+                            </form></div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="7">
+                        <!-- Modal Button -->
+                        <button type="button" class="btn btn-primary btn-small btn-cancelall" data-toggle="modal" data-target="#modalcancelallorders">Cancel All</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalcancelallorders" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title brightcolor" id="exampleModalLabel2">Cancel All Orders</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body brightcolor">
+                                        Do you really want to cancel all orders?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="/cancelallorders" method="post">
+                                            <input type="text" class="displaynone" value="CancelAllOrders" placeholder="CancelAllOrders" name="ordertype" required="required">
+                                            <input type="submit" value="Confirm" class="btn btn-primary btn-small modalfooterbtnfix">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% with messages = get_flashed_messages(category_filter=["cancelallorders"]) %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                <p class=flashes>{{ message }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--History-->
+    <div class="history">
+        <table class="mytables">
+            <thead>
+            <tr>
+                <th class="pnl brightcolor"><p class=" gradientcolor">BTCBUSD</p><p class="gradientcolor">Open Position: {{openpositionbtc}}</p><p class="gradientcolor">PnL: {{histbtc}}</p></th>
+            </tr>
+            <tr>
+                <td class="historyinfo">Last 3 months | Newest on top</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><div class="divhist">{% for item in pasthist_btc|reverse %}<p class="gradientcolor">{{item.income}}</p>{% endfor %}</div></td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    <!--Submitforms-->
+    <div class="submitforms">
+        {% include 'setorder_marketorder.html' %}
+        {% include 'setorder_stoptrail.html' %}
+        {% include 'setorder_limitentry.html' %}
+    </div>
+</div>
+{% endblock %}

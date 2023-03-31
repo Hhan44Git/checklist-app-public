@@ -1,0 +1,500 @@
+body {
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", Arial, Helvetica, sans-serif;
+    text-rendering: optimizeLegibility;
+    letter-spacing: .04em;
+    background-color: rgb(22 26 30);
+    margin: 2px;
+}
+
+h1 {
+    font-size: 1.0em;
+}
+
+.symbol {
+    font-size: 1.244em;
+}
+
+.small {
+    font-size: small;
+}
+
+.flashes {
+    color: rgb(174, 23, 23);
+}
+
+a:link, a:visited {
+    color: #eaecef;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    color: #eaecef;
+    text-decoration: underline;
+}
+
+.mytables {
+    border-collapse: collapse;
+    width: 100%;
+    color: rgb(132, 142, 156);
+    font-size: 0.7em;
+}
+
+.mytables td, .mytables th {
+  border: 1px solid rgb(37, 41, 48);
+  padding: 2px;
+  background-color: rgb(22 26 30);
+}
+
+.mytables th {
+    text-align: left;
+    background-color: #0e1113;
+    width: 16%;
+}
+
+.mytables th a:link, .mytables th a:visited {
+    color: #eaecef;
+    text-decoration: none;
+}
+
+.mytables th a:hover, .mytables th a:active {
+    color: #eaecef;
+    text-decoration: underline;
+}
+
+.brightcolor {
+    color: rgb(234, 236, 239);
+}
+.gradientcolor {
+    color: rgb(234, 236, 239);
+    background: -webkit-linear-gradient(rgb(234, 236, 239), rgb(132, 142, 156));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-rendering: optimizeLegibility;
+}
+
+.insetshadow {
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+    text-transform: uppercase;
+    text-rendering: optimizeLegibility;
+    letter-spacing: .1em;
+    text-shadow: 
+      -1px -1px 1px #111, 
+      2px 2px 1px #363636;
+}
+
+/* DivTable.com */
+.divTable{
+	display: table;
+	width: 100%;
+    /*background-color: #beaecefe8;
+    color: #248562;*/
+    background-color: rgb(22 26 30);
+    color: rgb(132, 142, 156);
+}
+
+.divHeadBG {
+    background-color: #0e1113;
+}
+
+.divTableRow {
+	display: table-row;
+}
+.divTableCell, .divTableHead {
+	border: 1px solid rgb(37, 41, 48);
+	display: table-cell;
+	padding: 1px 10px;
+    height: 1.31em;
+}
+.divTableHead {
+    padding: 1px 3px;
+    color: #eaecef;
+}
+
+.divTableHeadNum {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+}
+
+.divTableBody {
+	display: table-row-group;
+}
+
+.divTableCell select  {
+    width: fit-content;
+}
+
+.divTableCell input  {
+    width: 100%;
+    margin: 0;
+    padding: 2px 1px;
+    font-size: 0.8em;
+    line-height: 1.4em;
+}
+.divTableBottom {
+    height: 4px;
+}
+
+
+* {
+box-sizing: border-box;
+}
+
+/* Login Form */
+*:focus {
+outline: none;
+}
+
+.login {
+margin: 20px auto;
+width: 300px;
+}
+
+.login-screen {
+background-color: rgb(30 35 41);
+padding: 20px;
+border-radius: 5px;
+box-shadow: 10px 10px;
+border: 2px solid transparent;
+}
+
+.login-screen:hover {
+    border: 2px solid rgb(71, 77, 87);
+}
+
+.app-title {
+text-align: center;
+color: rgb(132, 142, 156);
+}
+
+.login-form {
+text-align: center;
+}
+
+.control-group {
+margin-bottom: 10px;
+}
+
+input, select {
+text-align: center;
+background-color: #2b3139;
+border: 2px solid transparent;
+border-radius: 3px;
+font-size: 0.8em;
+font-weight: 200;
+padding: 0;
+width: 250px;
+transition: border .5s;
+/*color: #eaecef;*/
+color: rgb(132, 142, 156);
+}
+.iconblack {
+    color: #000000;
+}
+.icongrey {
+    color: #a5a5a5;
+}
+.iconwhite {
+    color: #eaecef;
+}
+
+input:focus, select:focus {
+border: 2px solid #3498DB;
+box-shadow: none;
+}
+
+.btn {
+border: 2px solid transparent;
+background: rgb(71, 77, 87);
+color: #eaecef;
+padding: 2px 0;
+text-decoration: none;
+text-shadow: none;
+border-radius: 3px;
+box-shadow: none;
+transition: 0.25s;
+display: block;
+width: 250px;
+margin: 0 auto;
+cursor:pointer;
+}
+
+.btn:hover {
+background-color: rgb(94, 103, 117);
+background-image: linear-gradient(rgb(71, 77, 87), rgb(94, 103, 117), rgb(71, 77, 87));
+border: 2px solid rgb(117, 127, 142);
+}
+
+.btn-close {
+    border: 2px solid transparent;
+    background: rgb(71, 77, 87);
+    color: #eaecef;
+    font-size: 1em;
+    line-height: normal;
+    padding: 0;
+    text-decoration: none;
+    text-shadow: none;
+    border-radius: 3px;
+    box-shadow: none;
+    transition: 0.25s;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.btn-cancelall {
+    border: 2px solid transparent;
+    background: rgb(71, 77, 87);
+    color: #eaecef;
+    font-size: 1em;
+    line-height: normal;
+    padding: 2px 10px;
+    text-decoration: none;
+    text-shadow: none;
+    border-radius: 3px;
+    box-shadow: none;
+    transition: 0.25s;
+    display: block;
+    margin: 0 10px 0 0;
+    width: fit-content;
+    float: right;
+}
+
+.btn-closeorderid {
+    border: 2px solid transparent;
+    background: rgb(71, 77, 87);
+    color: #eaecef;
+    font-size: 1em;
+    line-height: normal;
+    padding: 2px 10px;
+    text-decoration: none;
+    text-shadow: none;
+    border-radius: 3px;
+    box-shadow: none;
+    transition: 0.25s;
+    display: block;
+    margin: 0 10px 0 0;
+    width: fit-content;
+    float: right;
+}
+
+.div100 {
+    width: 100%;
+    display: flex;
+}
+.div50 {
+    width: 50%;
+}
+.divhist {
+    width: fit-content;
+    text-align: right;
+    font-size: 1.4em;
+}
+.pnl {
+    font-size: 1.3em;
+}
+
+.login-link {
+font-size: 12px;
+color: #444;
+display: block;
+margin-top: 12px;
+}
+
+/* Main Trade DivTable*/
+.divTable2 {
+	display: flex;
+	width: 100%;
+}
+.divTableRow2 {
+	display: table-row;
+}
+.divTableCell2_1, .divTableCell2_2 {
+	border: 0px solid transparent;
+	display: table-cell;
+	padding: 0px;
+    vertical-align: top;
+}
+.divTableCell2_1 {
+	width: 20%;
+}
+.divTableCell2_2 {
+	width: 80%;
+}
+.divTableCell_history {
+    border: 0px solid transparent;
+	display: table-cell;
+	padding: 0px;
+    vertical-align: top;
+    width: 100%;
+}
+.divTableBody2 {
+	display: table-row-group;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.nowrap {
+    flex-wrap: nowrap;
+}
+.flexgrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.setorder {
+    margin: 20px;
+    width: 300px;
+}
+.setorder {
+    margin: 20px 0;
+    width: 300px;
+}
+.setorder > input {
+    margin: 20px 0;
+    width: 300px;
+}
+.displaynone {
+    display: none;
+}
+.emdefault {
+    font-size: 1em;
+}
+.emsmall {
+    font-size: 0.8em;
+}
+.historyinfo {
+    font-size: 0.9em;
+}
+.historyincome {
+    font-size: 1.2em;
+}
+
+.material-symbols {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 200,
+    'GRAD' 0,
+    'opsz' 10
+  }
+  .view_type_sorting{
+    font-family:"FontAwesome";
+    font-size:0.8em;
+  }
+  .selecteddiv:hover, .selecteddiv:active {
+    background-color: #0e1113;
+}
+input[type="radio"] {
+    display: flex;
+    flex-direction: row;
+    color: rgb(40 46 53);
+}
+.radiocolor {
+    color: rgb(40 46 53);
+}
+
+input[type='radio']:after {
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 0.8em;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 0.8em;
+    position: relative;
+    background-color: #ffa500;
+    content: '';
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:nth-child(1):checked:after {
+    background-color: #3f7a21;
+    content: '';
+    visibility: visible;
+    border: 2px solid white;
+}
+input[type='radio']:nth-child(3):checked:after  {
+    background-color: #7a2121;
+    content: '';
+    visibility: visible;
+    border: 2px solid white;
+}
+.midrangecolor {
+    /*color: #ffa500;*/
+    color: #d1d3d1;
+}
+.redcolor {
+    color: #7a2121;
+}
+.halfredcolor {
+    color: #ce7070;
+}
+.greencolor {
+    color: #3f7a21;
+}
+.halfgreencolor {
+    color: #a9d08e;
+}
+
+/*Grid*/
+.container {  display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "tradeovhead tradeovhead tradeovhead"
+      "openlists openlists openlists"
+      "history submitforms submitforms";
+  }
+  
+  .tradeovhead { grid-area: tradeovhead; font-size: 0.8em; }
+  
+  .openlists { grid-area: openlists; }
+  
+  .history { grid-area: history; }
+  
+  .submitforms { grid-area: submitforms; }
+  
+  
+  html, body , .container {
+    height: 100%;
+    margin: 0;
+  }
+  
+  /* For presentation only, no need to copy the code below */
+  
+  .container * {
+    /*border: 1px solid rgb(37, 41, 48);*/
+    position: relative;
+  }
+  
+  .container *:after {
+    /*content:attr(class);*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+  }
+  .topheadlink {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }

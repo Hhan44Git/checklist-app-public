@@ -1,0 +1,289 @@
+{% extends "layout.html" %}
+{% block title %}
+   <title>OV Main</title>
+{% endblock %}
+{% block body %}
+   {% if session['logged_in'] %}
+    <div class="divTable">
+        <div class="divTableBody">
+            <div class="divTableRow">
+                <div class="divTableCell">RiskLevel {{pnlpercent}} %</div>
+                <div class="divTableCell">BUSD {{balance}}</div>
+                <div class="divTableCell">BNB {{bnbbalance}} == BUSD {{bnbinbusd}}</div>
+                <div class="divTableCell">BTC Markprice: {{markprice}}</div>
+                <div class="divTableCell">BNB Markprice: {{bnbmarkprice}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="divTable2" style="width: 100%;">
+        <div class="divTableBody2">
+            <div class="divTableRow2">
+                <div class="divTableCell2_1">
+                    <table class="mytables">
+                        <thead>
+                        <tr>
+                            <th class="brightcolor"><p class="symbol gradientcolor">BTCBUSD</p><p class="gradientcolor">Open Position: {{openpositionbtc}}</p><p class="gradientcolor">PnL: {{histbtc}}</p></th>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 13px;">Last 3 months | Newest on top</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><div class="divhist">{% for item in pasthist_btc|reverse %}<p class="gradientcolor">{{item.income}}</p>{% endfor %}</div></td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+                <div class="divTableCell2_2">
+                    <table class="mytables">
+                        <tr>
+                            <th><h1 class="insetshadow">Open Position</h1></th>
+                        </tr>
+                    </table>
+                    <table class="mytables">
+                        <tbody>
+                            <tr>
+                                <th><p>symbol</p></th>
+                                <th><p>entryPrice</p></th>
+                                <th><p>positionAmt</p></th>                                
+                                <th><p>markPrice</p></th>
+                                <th><p>unRealizedProfit</p></th>
+                                <th><p>notional</p></th>
+                                <th><p>Close Position</p></th>
+                            </tr>
+                            {% for i in openposition %}
+                            <tr class="brightcolor">
+                                <td class="gradientcolor">{{i.symbol}}</td>
+                                <td class="gradientcolor">{{i.entryPrice}}</td>
+                                <td class="gradientcolor">{{i.positionAmt}}</td>                                
+                                <td class="gradientcolor">{{i.markPrice}}</td>
+                                <td class="gradientcolor">{{i.unRealizedProfit}}</td>
+                                <td class="gradientcolor">{{i.notional}}</td>
+                                <td>
+                                    <!-- Modal Button -->
+                                    <button type="button" class="btn btn-primary btn-small btn-close" data-toggle="modal" data-target="#modalcloseposition">Close</button>
+                                    {% with messages = get_flashed_messages(category_filter=["closeorder"]) %}
+                                        {% if messages %}
+                                            {% for message in messages %}
+                                            <p class=flashes>{{ message }}</p>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endwith %}
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalcloseposition" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Close Position</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Do you really want close the open position?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="/closehook" method="post">
+                                                        <input type="hidden" name="symbol" value="{{i.symbol}}">
+                                                        <input type="hidden" name="positionAmt" value="{{i.positionAmt}}">
+                                                        <input type="submit" value="Yes, close." class="btn btn-primary btn-small modalfooterbtnfix">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>                    
+                    <table class="mytables">
+                        <tr>
+                            <th><h1 class="insetshadow">Openorders</h1></th>
+                        </tr>
+                    </table>
+                    <table class="mytables">
+                        <tbody>
+                            <tr>
+                                <th><p>symbol</p></th>
+                                <th><p>price</p></th>
+                                <th><p>origQty</p></th>
+                                <th><p>executedQty</p></th>
+                                <th><p>type</p></th>
+                                <th><p>reduceOnly</p></th>
+                                <th><p>side</p></th>
+                            </tr>
+                            {% for i in openorders %}
+                            <tr class="brightcolor">
+                                <td class="gradientcolor">{{i.symbol}}</td>
+                                {% if i.type == 'LIMIT' %}
+                                <td class="gradientcolor">{{i.price}}</td>
+                                {% else %}
+                                <td class="gradientcolor">{{i.stopPrice}}</td>
+                                {% endif %}
+                                <td class="gradientcolor">{{i.origQty}}</td>
+                                <td class="gradientcolor">{{i.executedQty}}</td>
+                                <td class="gradientcolor">{{i.type}}</td>
+                                <td class="gradientcolor">{{i.reduceOnly}}</td>
+                                <td>
+                                    <div class="div100">
+                                        <div class="gradientcolor div50">{{i.side}}</div>
+                                        <div class="div50"><form action="/closeorderid" method="post">
+                                            <input type="hidden" name="symbol" value="{{i.symbol}}">
+                                            <input type="hidden" name="orderid" value="{{i.orderId}}">
+                                            <input type="submit" value="x" class="btn btn-primary btn-small btn-closeorderid">
+                                        </form></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="7">
+                                    <!-- Modal Button -->
+                                    <button type="button" class="btn btn-primary btn-small btn-cancelall" data-toggle="modal" data-target="#modalcancelallorders">Cancel All</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalcancelallorders" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title brightcolor" id="exampleModalLabel2">Cancel All Orders</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body brightcolor">
+                                                    Do you really want to cancel all orders?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="/setordersubmit" method="post">
+                                                        <input type="text" class="displaynone" value="BTCBUSDPERP" placeholder="BTCBUSDPERP" name="ticker" required="required">
+                                                        <input type="number" class="displaynone" value="10.0" placeholder="10.0" name="riskreward" step=0.01 required="required">
+                                                        <input type="text" class="displaynone" value="CancelAllOrders" placeholder="CancelAllOrders" name="ordertype" required="required">
+                                                        <input type="number" class="displaynone" value="0" placeholder="stoploss" name="stoploss" step=0.1 required="required">
+                                                        <input type="submit" value="Confirm" class="btn btn-primary btn-small modalfooterbtnfix">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% with messages = get_flashed_messages(category_filter=["cancelallorders"]) %}
+                                        {% if messages %}
+                                            {% for message in messages %}
+                                            <p class=flashes>{{ message }}</p>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endwith %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Setorder -->
+                    <div class="flex-container">
+                        <form action="/setordersubmit" method="POST">
+                            <div class="setorder">
+                                <div class="login-screen">
+                                    <div class="app-title insetshadow">
+                                        <h1>Market Order</h1>
+                                    </div>
+                                    <div class="login-form">
+                                        <div class="control-group displaynone">
+                                            <input type="text" class="login-field" value="BTCBUSDPERP" placeholder="BTCBUSDPERP" name="ticker" required="required">
+                                        </div>
+                                        <div class="control-group">
+                                            <input type="number" class="login-field" value="10.0" placeholder="10.0" name="riskreward" step=0.01 required="required">
+                                        </div>
+                                        <div class="control-group">
+                                            <select name="ordertype">
+                                                <option value="EntryLong">EntryLong</option>
+                                                <option value="EntryShort">EntryShort</option>
+                                            </select>
+                                        </div>
+                                        <div class="control-group">
+                                            <input type="number" class="login-field" placeholder="stoploss" name="stoploss" step=0.1 required="required">
+                                        </div>
+                                        <input type="submit" value="Submit" class="btn btn-primary btn-large btn-block">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Setorder END -->
+                        <!-- Setorder TWO -->
+                        <form action="/setordersubmit" method="POST">
+                            <div class="setorder">
+                                <div class="login-screen">
+                                    <div class="app-title insetshadow">
+                                        <h1>Limit Entry</h1>
+                                    </div>
+                                    <div class="login-form">
+                                        <div class="control-group displaynone">
+                                            <input type="text" class="login-field" value="BTCBUSDPERP" placeholder="BTCBUSDPERP" name="ticker" required="required">
+                                        </div>
+                                        <div class="control-group">
+                                            <input type="number" class="login-field" value="10.0" placeholder="10.0" name="riskreward" step=0.01 required="required">
+                                        </div>
+                                        <div class="control-group displaynone">
+                                            <input type="text" class="login-field" value="LimitEntry" placeholder="LimitEntry" name="ordertype" required="required">
+                                        </div>
+                                        <div class="control-group">
+                                            <select name="orderaction">
+                                                <option value="buy">Buy</option>
+                                                <option value="sell">Sell</option>
+                                            </select>
+                                        </div>
+                                        <div class="control-group">
+                                            <input type="number" class="login-field" placeholder="stoploss" name="stoploss" step=0.1 required="required">
+                                        </div>
+                                        <div class="control-group">
+                                            <input type="number" class="login-field" placeholder="orderprice" name="orderprice" step=0.1 required="required">
+                                        </div>
+                                        <input type="submit" value="Submit" class="btn btn-primary btn-large btn-block">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Setorder TWO END -->
+                        <!-- Setorder THREE -->
+                        <form action="/setordersubmit" method="POST">
+                            <div class="setorder">
+                                <div class="login-screen">
+                                    <div class="app-title insetshadow">
+                                        <h1>Stop Trail</h1>
+                                    </div>
+                                    <div class="login-form">
+                                        <div class="control-group displaynone">
+                                            <input type="text" class="login-field" value="BTCBUSDPERP" placeholder="BTCBUSDPERP" name="ticker" required="required">
+                                        </div>
+                                        <div class="control-group displaynone" >
+                                            <input type="number" class="login-field" value="10.0" placeholder="10.0" name="riskreward" step=0.01 required="required">
+                                        </div>
+                                        <div class="control-group displaynone">
+                                            <input type="text" class="login-field" value="StopTrail" placeholder="StopTrail" name="ordertype" required="required">
+                                        </div>
+                                        <div class="control-group">
+                                            <select name="orderaction">
+                                                <option value="buy">Buy</option>
+                                                <option value="sell" selected>Sell</option>
+                                            </select>
+                                        </div>
+                                        <div class="control-group displaynone">
+                                            <input type="number" class="login-field" value="0" placeholder="stoploss" name="stoploss" step=0.1 required="required">
+                                        </div>
+                                        <div class="control-group">
+                                            <input type="number" class="login-field" placeholder="orderprice" name="orderprice" step=0.1 required="required">
+                                        </div>
+                                        <input type="submit" value="Submit" class="btn btn-primary btn-large btn-block">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Setorder TWO THREE -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   {% else %}
+   <p>You're NOT logged in!</p>
+   {% endif %}
+{% endblock %}

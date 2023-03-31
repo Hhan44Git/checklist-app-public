@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}
+   <title>Checklist</title>
+{% endblock %}
+{% block body %}
+    <div class="flexgrid">
+        <div class="topheadlink"><a href="{{ url_for('routes.tradeov') }}">Trade Overview</a></div>
+        {% include 'timeframes.html' %}
+    </div>
+{% endblock %}

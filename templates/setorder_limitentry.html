@@ -1,0 +1,28 @@
+<!-- Setorder Limit Entry -->
+<form action="/postlimitorder" method="POST">
+    <div class="setorder">
+        <div class="login-screen">
+            <div class="app-title insetshadow">
+                <h1>Limit Entry</h1>
+            </div>
+            <div class="login-form">
+                <div class="control-group">
+                    <input type="number" class="login-field" value="10.0" placeholder="10.0" name="riskreward" step=0.01 required="required">
+                </div>
+                <div class="control-group">
+                    <select name="orderaction">
+                        <option value="BUY">Buy</option>
+                        <option value="SELL">Sell</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <input type="number" class="login-field" placeholder="stoploss" name="stoploss" step=0.1 required="required">
+                </div>
+                <div class="control-group">
+                    <input type="number" class="login-field" placeholder="orderprice" name="orderprice" step=0.1 required="required">
+                </div>
+                <input type="submit" value="Submit" class="btn btn-primary btn-large btn-block">
+            </div>
+        </div>
+    </div>
+</form>

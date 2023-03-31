@@ -1,0 +1,57 @@
+{% for index in range(tfindex) %}
+<!--{{tfname[index]}} TIMEFRAME-->
+<form action="/updatechecklist" method="POST" id="form{{index}}">
+<div class="divTable">
+    <div class="divTableBody">
+        <div class="divTableRow divHeadBG">
+            <input name="tf" value="{{tfnum[index]}}" type="hidden">
+            <div class="divTableCell divTableHead emdefault">{{tfname[index]}}</div>
+            <div class="divTableCell divTableHead emdefault divTableHeadNum
+                {% if CL[index]['pts']>=7 %}greencolor
+                {% elif CL[index]['pts']>=6 %}halfgreencolor
+                {% elif CL[index]['pts']<=3 %}redcolor
+                {% elif CL[index]['pts']<=4 %}halfredcolor
+                {% else %}midrangecolor{% endif %}">
+                {{ CL[index]['percent'] }} %
+            </div>
+        </div>
+
+        {% for number in range(9) %}
+        <div class="divTableRow selecteddiv">
+            <div class="divTableCell emsmall">
+                {{ conditions[number] }}
+            </div>
+            <div class="divTableCell flex-container nowrap">
+            {% if CL[index][number+2] == "YES" %}
+                <input type="radio" name="{{args[number]}}" value="YES" checked>
+                <input type="radio" name="{{args[number]}}" value="half">
+                <input type="radio" name="{{args[number]}}" value="NO">
+            {% elif CL[index][number+2] == "NO" %}
+                <input type="radio" name="{{args[number]}}" value="YES">                        
+                <input type="radio" name="{{args[number]}}" value="half">
+                <input type="radio" name="{{args[number]}}" value="NO" checked>
+            {% else %}
+                <input type="radio" name="{{args[number]}}" value="YES">
+                <input type="radio" name="{{args[number]}}" value="half" checked>
+                <input type="radio" name="{{args[number]}}" value="NO">
+            {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+            
+        <!--Form Button-->
+        <div class="divTableRow divTableBottom">
+        </div>
+    </div>
+</div>
+</form>
+<!--EventListener-->
+<script>
+    var form{{index}} = document.getElementById("form{{index}}");
+    form{{index}}.addEventListener("click", function () {
+        form{{index}}.submit();
+      });
+    ;
+  </script>
+
+{% endfor %}
