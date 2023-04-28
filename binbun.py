@@ -7,7 +7,9 @@ from binance.error import ClientError
 #os.system('w32tm/resync') #Needs admin rights
 #print(os)
 
-client = UMFutures(key=config.API_KEY, secret=config.API_SECRET, base_url="https://fapi.binance.com")
+baseurl = "https://fapi.binance.com"
+#baseurl = "https://testnet.binancefuture.com"
+client = UMFutures(key=config.API_KEY, secret=config.API_SECRET, base_url=baseurl)
 
 risklevel = 3.0 #RiskLevel
 ticker = "BTCBUSD"

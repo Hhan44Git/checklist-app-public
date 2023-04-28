@@ -1,4 +1,4 @@
 @echo off
-cd C:\Users\janro\Documents\heroku-git\checklist-app
+cd
 CALL venv\Scripts\activate
 python main.py
