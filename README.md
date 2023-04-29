@@ -17,3 +17,8 @@ If problem: https://flask.palletsprojects.com/en/2.2.x/installation/#virtual-env
 5) You need to create an API for Binance Futures and whitelist the IP if you want to use trade overview. Default is set for BTCBUSD-Perpetual Futures.
 
 Feel free to modify and use any of that Spaghetti code for your own liking.
+
+Checklist Preview:
+![Checklist](/static/checklist_overview_preview.jpg?raw=true "Checklist Overview")
+Trade Preview:
+![Trade](/static/trade_overview_preview.jpg?raw=true "Trade Overview")
