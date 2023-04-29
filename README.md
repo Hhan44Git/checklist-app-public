@@ -18,8 +18,7 @@ If problem: https://flask.palletsprojects.com/en/2.2.x/installation/#virtual-env
 
 Feel free to modify and use any of that Spaghetti code for your own liking.
 
-Checklist Preview:
+Checklist and Trade Preview:
 ![Checklist](/static/checklist_overview_preview.jpg?raw=true "Checklist Overview")
 
-Trade Preview:
 ![Trade](/static/trade_overview_preview.jpg?raw=true "Trade Overview")
