@@ -1,4 +1,5 @@
 # checklist-app-public
+A simple Flask App abused as DesktopApp, which has a Trade Overview for Binance Futures API and a technical indicator Checklist for multiple timeframes.
 
 Installation for Windows 10:
 
