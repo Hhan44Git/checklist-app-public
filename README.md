@@ -19,11 +19,7 @@ If problem: https://flask.palletsprojects.com/en/2.2.x/installation/#virtual-env
 Feel free to modify and use any of that Spaghetti code for your own liking.
 
 Checklist Preview:
-<div style="width:707px ; height:1162px">
 ![Checklist](/static/checklist_overview_preview.jpg?raw=true "Checklist Overview")
-</div>
 
 Trade Preview:
-<div style="width:706px ; height:1162px">
 ![Trade](/static/trade_overview_preview.jpg?raw=true "Trade Overview")
-</div>
